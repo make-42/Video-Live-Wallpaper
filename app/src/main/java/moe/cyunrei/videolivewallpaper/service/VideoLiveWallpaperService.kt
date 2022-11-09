@@ -37,7 +37,7 @@ class VideoLiveWallpaperService : WallpaperService() {
             mediaPlayer = MediaPlayer().apply {
                 setSurface(holder.surface)
                 setDataSource(videoFilePath)
-                isLooping = true
+                isLooping = false
                 setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING)
                 prepare()
                 start()
@@ -55,6 +55,7 @@ class VideoLiveWallpaperService : WallpaperService() {
 
         override fun onVisibilityChanged(visible: Boolean) {
             if (visible) {
+                mediaPlayer!!.seekTo(0)
                 mediaPlayer!!.start()
             } else {
                 mediaPlayer!!.pause()
